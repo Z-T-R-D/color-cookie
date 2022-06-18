@@ -1,0 +1,19 @@
+import styled from "styled-components";
+
+const StyledBrand = styled.div`
+  display: flex;
+  align-items: center;
+  color: blue;
+  flex-wrap: wrap;
+  justify-content: center;
+  h1 {
+    text-transform: uppercase;
+    font-size: clamp(0.75rem, 0.5rem + 3vw, 2rem);
+  }
+  img {
+    width: clamp(0.5em, 0.5em + 3vw, 1.5em);
+    margin-inline-start: 0.25em;
+  }
+`;
+
+export default StyledBrand;
