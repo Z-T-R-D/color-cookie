@@ -23,7 +23,7 @@ const StyledToggler = styled.div`
       inset: 0.2em 0.25em;
       width: 30%;
       background-color: var(--primary-clr);
-      /* transition: 0.1s; */
+      transition: transform 0.25s;
     }
     &:hover {
       &::before {

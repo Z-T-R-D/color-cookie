@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  cursor: pointer;
   padding: 0.5em 1.5em;
   box-shadow: 0 0 1px 0.5px var(--primary-clr);
   background-color: #fff;
@@ -9,6 +10,8 @@ const StyledButton = styled.button`
   appearance: none;
   border: 0;
   border-radius: 0.5em;
+  transition: 0.25s;
+
   &:hover {
     background-color: var(--primary-clr);
     color: #fff;

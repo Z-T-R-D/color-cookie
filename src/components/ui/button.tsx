@@ -1,9 +1,11 @@
 import StyledButton from "../style/button.styled";
-
-const Button: React.FunctionComponent<{ text: string }> = (props: {
+type ButonType = {
   text: string;
-}) => {
-  return <StyledButton>{props.text}</StyledButton>;
+  onClick?: () => void;
+};
+
+const Button = (props: ButonType) => {
+  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
 };
 
 export default Button;

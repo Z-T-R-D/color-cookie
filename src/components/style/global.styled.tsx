@@ -1,5 +1,9 @@
-:root {
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+    :root {
   --primary-clr: blue;
+ --secondary-clr: #2f2e41;
 }
 
 *,
@@ -52,3 +56,16 @@ main {
   margin-block-start: 1em;
   scroll-margin-block-start: 1em;
 }
+
+.container{
+    width: min(100% - 2em, 500px);
+    margin-inline:auto;
+}
+section{
+    &:not(:last-child) {
+    margin-block-end: 1em;
+  }
+}
+
+`;
+export default GlobalStyle;

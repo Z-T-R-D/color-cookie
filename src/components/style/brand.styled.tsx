@@ -10,9 +10,10 @@ const StyledBrand = styled.div`
     text-transform: uppercase;
     font-size: clamp(0.75rem, 0.5rem + 3vw, 2rem);
   }
-  img {
+  svg {
     width: clamp(0.5em, 0.5em + 3vw, 1.5em);
     margin-inline-start: 0.25em;
+    height: fit-content;
   }
 `;
 
