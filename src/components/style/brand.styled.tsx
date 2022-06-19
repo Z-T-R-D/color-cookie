@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledBrand = styled.div`
   display: flex;
   align-items: center;
-  color: blue;
+  color: var(--primary-clr);
   flex-wrap: wrap;
   justify-content: center;
   h1 {

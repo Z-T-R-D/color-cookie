@@ -13,12 +13,10 @@ const StyledMainView = styled.section`
 
   .copieable {
     display: flex;
-    position: absolute;
     justify-content: space-between;
-    transition: box-shadow 1s;
-    background-color: #fff;
-    box-shadow: -0.5px 0 0.5px 1px ${(props: { Error: boolean }) =>
-      props.Error ? "red" : "#ddd"}
+    transition: box-shadow 0.5s;
+    background-color: var(--light-clr);
+    box-shadow: -0.5px 0 0.5px 1px var(--shadow1-clr);
     padding: 0.75em;
     width: min(80vw, 60ch);
     color: var(--primary-clr);
@@ -32,20 +30,25 @@ const StyledMainView = styled.section`
     width: 90%;
   }
   .copy {
-    width: 1.8em;
+    cursor: pointer;
+    width: 1.7em;
     padding: 0.25em;
+    font-size: 1.15em;
     border-radius: 0.25em;
     transition: 0.25s;
     &:hover {
-      background-color: #ddd;
+      background-color: var(--shadow2-clr);
     }
     &:active {
-      background-color: #fff;
+      background-color: var(--light-clr);
     }
   }
-  .button {
+  .form {
+    display: grid;
+    place-content: center;
     position: absolute;
-    margin-block-start: 10em;
+    place-items: center;
+    gap: 1em;
   }
 `;
 

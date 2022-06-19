@@ -4,32 +4,28 @@ const StyledToggler = styled.div`
   position: relative;
   display: inline-block;
   width: 4em;
-  aspect-ratio: 1/0.125;
-  cursor: pointer;
-  & input {
-    width: 0;
-    opacity: 0;
-    aspect-ratio: 1;
-  }
+  aspect-ratio: 1/0.35;
   & .slider {
     position: absolute;
     cursor: pointer;
     inset: 0;
-    background-color: #f9f9f9;
-    box-shadow: inset 0 0 2px 0.5px #ddd;
+    background-color: var(--light2-clr);
+    box-shadow: inset 0 0 2px 0.5px var(--shadow1-clr);
     &::before {
+      cursor: pointer;
       position: absolute;
       content: "";
-      inset: 0.2em 0.25em;
+      inset: 0.1em 0.25em;
       width: 30%;
       background-color: var(--primary-clr);
       transition: transform 0.25s;
     }
-    &:hover {
+    &[data-active="true"] {
       &::before {
         transform: translateX(calc(4em / 2 + 0.28em));
       }
     }
+
     &.rounded {
       border-radius: 1em;
       &:before {
@@ -37,12 +33,6 @@ const StyledToggler = styled.div`
       }
     }
   }
-  /* input:checked + &_slider {
-    background-color: red;
-  } */
-  /* input:checked + &_slider:before {
-    transform: translateX(26px);
-    /* background-color: ; */
 `;
 
 export default StyledToggler;

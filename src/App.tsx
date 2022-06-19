@@ -1,33 +1,49 @@
 import Header from "./components/layout/header";
 import MainView from "./components/layout/mainView";
+import SubView from "./components/layout/subView";
 import GlobalStyle from "./components/style/global.styled";
-type colorsType = { primary: string; secondary: string };
-type activeProp = "light" | "dark";
-
-type themeType = {
-  light: colorsType;
-  dark: colorsType;
-  active: (e: activeProp) => colorsType;
-};
-const theme: themeType = {
-  light: {
-    primary: "red",
-    secondary: "blue",
-  },
-  dark: {
-    primary: "blue",
-    secondary: "red",
-  },
-  active: (e) => (e === "light" ? theme.light : theme.dark),
+import { useEffect, useState } from "react";
+import generate from "./color-converter";
+import { Combinations } from "./color-converter";
+type InputType = {
+  textInput: string;
 };
 
 function App() {
+  // states
+  const [colors, setColors] = useState<Combinations>();
+  const [input, setInput] = useState<InputType>({ textInput: "" });
+  const [show, setShow] = useState({ display: false });
+  const getInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleGenerate = () => {
+    let Colors = generate(input.textInput);
+    setColors(Colors);
+    setShow({ display: true });
+    document.documentElement.style.setProperty("--primary-clr", Colors.hex);
+  };
+  const handleCopy = () => {
+    // navigator.clipboard.writeText(input.textInput);
+    console.log(input.textInput);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Header />
-      <main className="App">
-        <MainView />
+      <main>
+        <MainView
+          onClick={handleGenerate}
+          onChange={getInput}
+          onCopy={handleCopy}
+          input={input.textInput}
+        />
+        <SubView colors={colors} display={show.display} />
       </main>
     </>
   );

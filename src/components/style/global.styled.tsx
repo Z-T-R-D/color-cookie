@@ -2,8 +2,14 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     :root {
-  --primary-clr: blue;
- --secondary-clr: #2f2e41;
+  --primary-clr:blue;
+ --secondary-clr:#2f2e41 ;
+ --shadow2-clr:#ccc;
+ --shadow-clr:#eee;
+ --shadow1-clr:#ddd;
+ --dark-clr:#222;
+ --light-clr:#fff;
+ --light2-clr:#f9f9f9;
 }
 
 *,
@@ -57,14 +63,17 @@ main {
   scroll-margin-block-start: 1em;
 }
 
-.container{
-    width: min(100% - 2em, 500px);
-    margin-inline:auto;
-}
+
 section{
     &:not(:last-child) {
     margin-block-end: 1em;
   }
+}
+div.active{
+  display: block;
+}
+div.none{
+  display: none;
 }
 
 `;
