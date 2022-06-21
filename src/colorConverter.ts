@@ -1,5 +1,3 @@
-import { count } from "console";
-
 // types
 type Hex = string;
 type Rgb = {
@@ -12,24 +10,25 @@ type Hsl = {
   saturation: number;
   lightness: number;
 };
-export type Complimentary = [Hex, Hex];
-export type SplitComplimentary = [Hex, Hex, Hex];
-export type Triad = [Hex, Hex, Hex, Hex];
-export type Tetrad = [Hex, Hex, Hex, Hex, Hex];
-export type Combinations = {
-  hex: Hex;
+type MainColor = [Hex];
+type Complimentary = [Hex, Hex];
+type SplitComplimentary = [Hex, Hex, Hex];
+type Triad = [Hex, Hex, Hex, Hex];
+type Tetrad = [Hex, Hex, Hex, Hex, Hex];
+export interface Combinations {
+  mainColor: MainColor;
   complimentary: Complimentary;
   splitComplimentary: SplitComplimentary;
   triad: Triad;
   tetrad: Tetrad;
-};
+}
 type ParserParams = {
   color: Hsl;
   start: number;
   end: number;
   interval: number;
 };
-type Parser = Hex | Complimentary | SplitComplimentary | Triad | Tetrad;
+type Parser = Complimentary | SplitComplimentary | Triad | Tetrad;
 // generate and return  hex color
 function generateHex(params: string): Hex {
   let hexadecimal = "";
@@ -214,7 +213,7 @@ function getCombination(params: Hex): Combinations {
   });
 
   return {
-    hex: params,
+    mainColor: [params],
     complimentary: compliment as Complimentary,
     splitComplimentary: splitComp as SplitComplimentary,
     triad: triad as Triad,

@@ -3,22 +3,26 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   cursor: pointer;
   padding: 0.75em 2em;
-  box-shadow: 0 0 1px 0.5px var(--primary-clr);
-  background-color: var(--light-clr);
-  color: var(--primary-clr);
+  box-shadow: 0 0 1px 1px var(--btn-border-clr);
+  background-color: var(--btn-bg-clr);
+  color: var(--btn-text-clr);
   text-transform: capitalize;
   appearance: none;
   border: 0;
   border-radius: 0.5em;
-  transition: 0.25s;
+  transition: background-color 0.125s;
 
   &:hover {
-    background-color: var(--primary-clr);
-    color: var(--light-clr);
+    --btn-bg-clr: var(--btn-bg-hover-clr);
+    --btn-text-clr: var(--btn-text-hover-clr);
+    background-color: var(--btn-bg-clr);
+    color: var(--btn-text-clr);
   }
   &:active {
-    background-color: var(--light-clr);
-    color: var(--primary-clr);
+    --btn-bg-clr: var(--btn-bg-active-clr);
+    --btn-text-clr: var(--btn-text-active-clr);
+    background-color: var(--btn-bg-clr);
+    color: var(--btn-text-clr);
   }
 `;
 

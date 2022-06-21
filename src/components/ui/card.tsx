@@ -1,28 +1,32 @@
-import {
-  Complimentary,
-  SplitComplimentary,
-  Triad,
-  Tetrad,
-} from "../../color-converter";
 import StyledBox from "../style/box.styled";
 
-type Props = {
-  colors?: string | Complimentary | SplitComplimentary | Triad | Tetrad;
+type PropType = {
+  colors: string[];
   title: string;
 };
 
-const Card = (props: Props) => {
+const Card = (props: PropType) => {
+  const getTitle = (): string => {
+    let title: string;
+    if (props.title === "mainColor") {
+      title = "main color";
+    } else if (props.title === "splitComplimentary") {
+      title = "split complimentary";
+    } else {
+      title = props.title;
+    }
+    return title;
+  };
   return (
     <div className="card">
-      <h4 className="card_title">{props.title}</h4>
+      <h4 className="card_title">{getTitle()}</h4>
       <div className="card_body">
-        {typeof props.colors === "string" ? (
-          <StyledBox color={props.colors} />
-        ) : (
-          props.colors?.map((color, index) => (
-            <StyledBox color={color} key={index.toString()} />
-          ))
-        )}
+        {props.colors.map((color, index) => (
+          <div className="content" key={index.toString()}>
+            <StyledBox color={color} />
+            <p>{color}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

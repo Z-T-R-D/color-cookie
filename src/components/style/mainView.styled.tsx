@@ -15,14 +15,16 @@ const StyledMainView = styled.section`
     display: flex;
     justify-content: space-between;
     transition: box-shadow 0.5s;
-    background-color: var(--light-clr);
-    box-shadow: -0.5px 0 0.5px 1px var(--shadow1-clr);
+    background-color: var(--input-bg-clr);
+    box-shadow: 0px 0 1px 1px var(--input-border-clr);
     padding: 0.75em;
     width: min(80vw, 60ch);
-    color: var(--primary-clr);
+    color: var(--input-text-clr);
     font-size: clamp(0.5rem, 1rem + 3vw, 1.15rem);
+    border-radius: 0.5em;
     &:focus-within {
-      box-shadow: 0 0 2px 1px var(--primary-clr);
+      --input-border-clr: var(--primary-clr);
+      box-shadow: 0 0 2px 1px var(--input-border-clr);
     }
   }
   input {
@@ -37,7 +39,7 @@ const StyledMainView = styled.section`
     border-radius: 0.25em;
     transition: 0.25s;
     &:hover {
-      background-color: var(--shadow2-clr);
+      background-color: var(--shadow-clr);
     }
     &:active {
       background-color: var(--light-clr);

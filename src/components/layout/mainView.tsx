@@ -2,15 +2,25 @@ import StyledMainView from "../style/mainView.styled";
 import Button from "../ui/button";
 import { ReactComponent as Bg } from "../../image/bg.svg";
 import { ReactComponent as Copy } from "../../image/copy.svg";
+import { useState, useContext } from "react";
+import ColorContext from "../../context/colorContext";
 
-type PropType = {
-  onClick: () => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  input: string;
-  onCopy: () => void;
+type InputType = {
+  textInput: string;
 };
 
-const MainView = (props: PropType) => {
+const MainView = () => {
+  const [Input, setInput] = useState<InputType>({ textInput: "" });
+  const { setColors } = useContext(ColorContext);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+  function handleClick() {
+    setColors(Input.textInput);
+  }
   return (
     <StyledMainView>
       <Bg />
@@ -20,18 +30,18 @@ const MainView = (props: PropType) => {
             type="text"
             name="textInput"
             id="textInput"
-            value={props.input}
+            value={Input.textInput}
             placeholder="#fffff"
-            onChange={props.onChange}
+            onChange={handleChange}
             minLength={4}
             maxLength={7}
             required
             min={4}
             max={7}
           />
-          <Copy onClick={props.onCopy} />
+          <Copy />
         </div>
-        <Button text="generate" onClick={props.onClick} />
+        <Button text="generate" onClick={handleClick} />
       </div>
     </StyledMainView>
   );

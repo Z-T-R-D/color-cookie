@@ -1,26 +1,18 @@
 import StyledSubView from "../style/subView.styled";
-import { Combinations } from "../../color-converter";
 import Card from "../ui/card";
-type PropType = {
-  colors: Combinations | undefined;
-  display: boolean;
-};
-const SubView = (props: PropType) => {
-  let keys = props.colors && Object.keys(props.colors);
-  let values = props.colors && Object.values(props.colors);
+import { useContext } from "react";
+import ColorContext from "../../context/colorContext";
+
+const SubView = () => {
+  const { colors, display } = useContext(ColorContext);
+  const keys = Object.keys(colors);
+  const values: string[][] = Object.values(colors);
   return (
-    <div className={props.display ? "active" : "none"}>
-      <StyledSubView>
-        {keys &&
-          keys.map((name, index) => (
-            <Card
-              key={index.toString()}
-              title={name}
-              colors={values && values[index]}
-            />
-          ))}
-      </StyledSubView>
-    </div>
+    <StyledSubView slot={`${display}`}>
+      {keys.map((key, index) => (
+        <Card key={index.toString()} title={key} colors={values[index]} />
+      ))}
+    </StyledSubView>
   );
 };
 

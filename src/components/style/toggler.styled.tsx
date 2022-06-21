@@ -9,15 +9,15 @@ const StyledToggler = styled.div`
     position: absolute;
     cursor: pointer;
     inset: 0;
-    background-color: var(--light2-clr);
-    box-shadow: inset 0 0 2px 0.5px var(--shadow1-clr);
+    background-color: var(--toggle-slide-clr);
+    box-shadow: inset 0 0 2px 0.5px var(--toggle-border-clr);
     &::before {
       cursor: pointer;
       position: absolute;
       content: "";
-      inset: 0.1em 0.25em;
+      inset: 0.2em 0.25em;
       width: 30%;
-      background-color: var(--primary-clr);
+      background-color: var(--toggle-ball-clr);
       transition: transform 0.25s;
     }
     &[data-active="true"] {

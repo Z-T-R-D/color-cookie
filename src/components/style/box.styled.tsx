@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const StyledBox = styled.div`
-  width: min(15vw, 15ch);
-  aspect-ratio: 1/0.5;
-  outline: 1px solid var(--shadow3-clr);
+  width: min(15vw, 20ch);
+  aspect-ratio: 2/0.8;
+  border-radius: 0.5em;
   background-color: ${(props) => props.color};
 `;
 
