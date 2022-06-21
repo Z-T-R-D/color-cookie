@@ -20,18 +20,25 @@ const GlobalStyle = createGlobalStyle`
  --hd-border-clr:var(--shadow2-clr);
  --input-bg-clr:var(--light-clr);
  --input-text-clr:var(--primary-clr);
- --input-border-clr:var(--shadow2-clr);
+ --input-border-clr:var(--shadow3-clr);
  --btn-bg-clr:var(--light-clr);
  --btn-text-clr:var(--primary-clr);
  --btn-bg-hover-clr:var(--primary-clr);
  --btn-text-hover-clr:var(--light-clr);
  --btn-bg-active-clr:var(--light-clr);
- --btn-text-active-clr:var(--primary-clr);;
+ --btn-text-active-clr:var(--primary-clr);
  --btn-border-clr:var(--primary-clr);
  --toggle-slide-clr:var(--light2-clr);
  --toggle-ball-clr:var(--primary-clr);
  --toggle-border-clr:var(--shadow2-clr);
- --hex-clr:var(--shadow3-clr)
+ --hex-clr:var(--shadow3-clr);
+ --copy-icon-hover:var(--shadow-clr);
+ --copy-icon-active: var(--light-clr);
+--dialog-bg: var(--light-clr);
+--scrollbar-bg-clr:var(--shadow3-clr);
+--footer-text-clr:var(--light-clr);
+--footer-bg-clr:var(--dark-clr);
+
 }
 
 
@@ -48,8 +55,31 @@ html.dark{
  --btn-bg-active-clr:var(--dark-clr);
  --toggle-slide-clr:var(--dark-clr);
  --toggle-border-clr:var(--dark3-clr);
- --hex-clr:var(--dark2-clr)
+ --hex-clr:var(--dark2-clr);
+  --copy-icon-hover:var(--dark2-clr);
+ --copy-icon-active: var(--dark-clr);
+ --dialog-bg: var(--dark-clr);
+ --scrollbar-bg-clr:var(--dark2-clr);
+ --footer-text-clr:var(--dark-clr);
+ --footer-bg-clr:var(--light-clr);
+
 }}
+
+@supports(scrollbar-color: var(--primary-clr) var(--scrollbar-bg-clr)){
+  *{
+    scrollbar-color: var(--primary-clr) var(--scrollbar-bg-clr);
+    scrollbar-width:thin;
+  }
+}
+::-webkit-scrollbar{
+  width:0.7em
+}
+::-webkit-scrollbar-track{
+  background-color: var(--scrollbar-bg-clr);
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--primary-clr);
+}
 
 
 *,

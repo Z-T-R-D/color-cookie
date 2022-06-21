@@ -5,7 +5,11 @@ type ButonType = {
 };
 
 const Button = (props: ButonType) => {
-  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
+  return (
+    <StyledButton onClick={props.onClick} type="button">
+      {props.text}
+    </StyledButton>
+  );
 };
 
 export default Button;

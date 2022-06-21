@@ -44,12 +44,18 @@ function convertHexToRgb(params: Hex): Rgb {
     green = 0,
     blue = 0;
   params = params.slice(1, params.length);
-  if (params.length === 6) {
+  if (params.length === 3) {
+    red = parseInt("0x" + params[0] + params[0]);
+    green = parseInt("0x" + params[1] + params[1]);
+    blue = parseInt("0x" + params[2] + params[2]);
+  } else if (params.length === 6) {
     red = parseInt("0x" + params[0] + params[1]);
     green = parseInt("0x" + params[2] + params[3]);
     blue = parseInt("0x" + params[4] + params[5]);
   } else {
-    console.log("your hex code is not  ==  6 ");
+    red = 0;
+    blue = 0;
+    green = 0;
   }
   return { red, green, blue };
 }
@@ -226,6 +232,8 @@ const generate = (params?: Hex): Combinations => {
   let hex: Hex = "";
   if (!params) {
     hex = generateHex(colorRange);
+  } else {
+    hex = params;
   }
   return getCombination(hex);
 };

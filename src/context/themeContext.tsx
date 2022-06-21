@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-// setting types
+// setting type
 type ContextType = {
   active: boolean;
   setActive?: () => void;
@@ -8,8 +8,10 @@ type ContextType = {
 // setting initial state
 const initialState = false;
 
+// create and initialize state
 const ThemeCtx = createContext<ContextType>({ active: initialState });
 
+// create and initialize provider
 export function ThemeProvider(prop: { children: React.ReactNode }) {
   const [Active, setActive] = useState(initialState);
   const handleActive = () => {

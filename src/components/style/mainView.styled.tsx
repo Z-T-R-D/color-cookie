@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledMainView = styled.section`
   width: 100%;
-  height: 80vh;
   display: grid;
   place-items: center;
   place-content: center;
@@ -18,13 +17,16 @@ const StyledMainView = styled.section`
     background-color: var(--input-bg-clr);
     box-shadow: 0px 0 1px 1px var(--input-border-clr);
     padding: 0.75em;
-    width: min(80vw, 60ch);
+    width: min(80vw, 70ch);
     color: var(--input-text-clr);
     font-size: clamp(0.5rem, 1rem + 3vw, 1.15rem);
     border-radius: 0.5em;
     &:focus-within {
       --input-border-clr: var(--primary-clr);
       box-shadow: 0 0 2px 1px var(--input-border-clr);
+    }
+    &.error {
+      outline: 1px solid red;
     }
   }
   input {
@@ -39,10 +41,10 @@ const StyledMainView = styled.section`
     border-radius: 0.25em;
     transition: 0.25s;
     &:hover {
-      background-color: var(--shadow-clr);
+      background-color: var(--copy-icon-hover);
     }
     &:active {
-      background-color: var(--light-clr);
+      background-color: var(--copy-icon-active);
     }
   }
   .form {
