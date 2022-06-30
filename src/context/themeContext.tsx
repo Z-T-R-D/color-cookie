@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 
 // setting type
 type ContextType = {
@@ -6,22 +6,27 @@ type ContextType = {
   setActive?: () => void;
 };
 // setting initial state
-const initialState = false;
+const initialState = {
+  active: false,
+};
 
 // create and initialize state
-const ThemeCtx = createContext<ContextType>({ active: initialState });
+const ThemeCtx = createContext<ContextType>(initialState);
 
 // create and initialize provider
-export function ThemeProvider(prop: { children: React.ReactNode }) {
-  const [Active, setActive] = useState(initialState);
-  const handleActive = () => {
-    let root = document.querySelector("html")!;
-    Active ? setActive(false) : setActive(true);
-    Active ? root.classList.remove("dark") : root.classList.add("dark");
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [isDark, setDark] = useState(false);
+  const setActive = () => {
+    setDark(!isDark);
   };
+
+  useMemo(() => {
+    let root = document.querySelector("html")!;
+    isDark ? root.classList.add("dark") : root.classList.remove("dark");
+  }, [isDark]);
   return (
-    <ThemeCtx.Provider value={{ active: Active, setActive: handleActive }}>
-      {prop.children}
+    <ThemeCtx.Provider value={{ active: isDark, setActive }}>
+      {children}
     </ThemeCtx.Provider>
   );
 }
