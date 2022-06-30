@@ -1,27 +1,22 @@
 import StyledBox from "../style/box.styled";
 
-type PropType = {
-  colors: string[];
-  title: string;
-};
-
-const Card = (props: PropType) => {
+const Card = ({ colors, title }: { colors: string[]; title: string }) => {
   const getTitle = (): string => {
-    let title: string;
-    if (props.title === "mainColor") {
-      title = "main color";
-    } else if (props.title === "splitComplimentary") {
-      title = "split complimentary";
+    let value: string;
+    if (title === "mainColor") {
+      value = "main color";
+    } else if (title === "splitComplimentary") {
+      value = "split complimentary";
     } else {
-      title = props.title;
+      value = title;
     }
-    return title;
+    return value;
   };
   return (
     <div className="card">
       <h4 className="card_title">{getTitle()}</h4>
       <div className="card_body">
-        {props.colors.map((color, index) => (
+        {colors.map((color, index) => (
           <div className="content" key={index.toString()}>
             <StyledBox color={color} />
             <p>{color}</p>

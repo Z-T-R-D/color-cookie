@@ -1,9 +1,5 @@
-import { createContext, useState } from "react";
-import generate, { Combinations } from "../colorConverter";
-// types
-type PropType = {
-  children: React.ReactNode;
-};
+import { createContext, useState, useEffect, useMemo } from "react";
+import generate, { Combinations } from "../core/colorConverter";
 
 type ContextType = {
   colors: Combinations;
@@ -14,7 +10,7 @@ type ContextType = {
 // initial state
 const initialState: Combinations = {
   mainColor: ["#000"],
-  complimentary: ["#0000", "#fff"],
+  complimentary: ["#000", "#fff"],
   splitComplimentary: ["#000", "#000", "#fff"],
   triad: ["#000", "#fff", "#000", "#001"],
   tetrad: ["#000", "#fff", "#000", "#001", "#000"],
@@ -28,31 +24,43 @@ const ColorContext = createContext<ContextType>({
 });
 
 // create and export provider
-export function ColorProvider(props: PropType) {
-  const [Colors, setColors] = useState(initialState);
-  const [Display, setDisplay] = useState(false);
-  const handleSetColor = (params?: string) => {
-    let colors = generate(params);
-    setColors(colors);
+export function ColorProvider({ children }: { children: React.ReactNode }) {
+  const [colors, setStateColors] = useState<Combinations>(initialState);
+  const [display, setDisplayState] = useState(false);
+  useMemo(() => {
     document.documentElement.style.setProperty(
       "--primary-clr",
       colors.mainColor[0]
     );
-    !Display && setDisplay(true);
+  }, [colors]);
+  const setColors = (params: string) => {
+    let generatedColors = generate(params);
+    setStateColors((params) => ({
+      ...params,
+      ...generatedColors,
+    }));
+
+    !display && setDisplayState(true);
   };
-  const handleDisplay = (params: boolean) => {
-    setDisplay(params);
+  const setDisplay = (params: boolean) => {
+    setDisplayState(params);
   };
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--primary-clr",
+      generate().mainColor[0]
+    );
+  }, []);
   return (
     <ColorContext.Provider
       value={{
-        colors: Colors,
-        setColors: handleSetColor,
-        display: Display,
-        setDisplay: handleDisplay,
+        colors,
+        setColors,
+        display,
+        setDisplay,
       }}
     >
-      {props.children}
+      {children}
     </ColorContext.Provider>
   );
 }
