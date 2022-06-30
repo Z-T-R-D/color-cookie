@@ -27,17 +27,13 @@ const ColorContext = createContext<ContextType>({
 export function ColorProvider({ children }: { children: React.ReactNode }) {
   const [colors, setStateColors] = useState<Combinations>(initialState);
   const [display, setDisplayState] = useState(false);
-  useMemo(() => {
-    document.documentElement.style.setProperty(
-      "--primary-clr",
-      colors.mainColor[0]
-    );
-  }, [colors]);
+  const [isFirst, setFirst] = useState(false);
+
+  // set colors state
   const setColors = (params: string) => {
-    let generatedColors = generate(params);
-    setStateColors((params) => ({
-      ...params,
-      ...generatedColors,
+    setStateColors((prevState) => ({
+      ...prevState,
+      ...generate(params),
     }));
 
     !display && setDisplayState(true);
@@ -45,12 +41,32 @@ export function ColorProvider({ children }: { children: React.ReactNode }) {
   const setDisplay = (params: boolean) => {
     setDisplayState(params);
   };
+  // // generare new color on load and reload
   useEffect(() => {
+    setStateColors((prevState) => ({
+      ...prevState,
+      ...generate(""),
+    }));
     document.documentElement.style.setProperty(
       "--primary-clr",
-      generate().mainColor[0]
+      generate("").mainColor[0]
     );
   }, []);
+  // generare new color on click
+  useMemo(() => {
+    if (isFirst) {
+      document.documentElement.style.setProperty(
+        "--primary-clr",
+        generate("").mainColor[0]
+      );
+      setFirst(true);
+    } else {
+      document.documentElement.style.setProperty(
+        "--primary-clr",
+        colors.mainColor[0]
+      );
+    }
+  }, [colors]);
   return (
     <ColorContext.Provider
       value={{

@@ -241,9 +241,9 @@ function getCombination(params: Hex): Combinations {
   };
 }
 
-const generate = (params?: Hex): Combinations => {
+const generate = (params: Hex): Combinations => {
   let hex: Hex;
-  if (params == "" || !params) {
+  if (params == "") {
     hex = generateHex();
   } else {
     hex = params;

@@ -16,10 +16,11 @@ const ThemeCtx = createContext<ContextType>(initialState);
 // create and initialize provider
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isDark, setDark] = useState(false);
+  // set darktheme state
   const setActive = () => {
     setDark(!isDark);
   };
-
+  // set darkthemw on click
   useMemo(() => {
     let root = document.querySelector("html")!;
     isDark ? root.classList.add("dark") : root.classList.remove("dark");
