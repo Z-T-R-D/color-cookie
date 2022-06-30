@@ -22,19 +22,19 @@ export interface Combinations {
   triad: Triad;
   tetrad: Tetrad;
 }
-type ParserParams = {
+type Parser = {
   color: Hsl;
   start: number;
   end: number;
   interval: number;
 };
-type Parser = Complimentary | SplitComplimentary | Triad | Tetrad;
 // generate and return  hex color
-function generateHex(params: string): Hex {
+function generateHex(): Hex {
+  let colorRange = "1234567890abcdef";
   let hexadecimal = "";
   while (hexadecimal.length < 6) {
     // generate Hex values
-    hexadecimal += params[Math.floor(Math.random() * params.length)];
+    hexadecimal += colorRange[Math.floor(Math.random() * colorRange.length)];
   }
   return `#${hexadecimal}`;
 }
@@ -92,6 +92,8 @@ function convertRgbToHsl(params: Rgb): Hsl {
   if (hue < 0) {
     // make nagetive hue positive
     hue += 360;
+  } else {
+    hue = hue;
   }
   lightness = (cmax + cmin) / 2;
   saturation = change == 0 ? 0 : change / (1 - Math.abs(2 * lightness - 1));
@@ -143,6 +145,10 @@ function convertHslToRgb(params: Hsl): Rgb {
     r = c;
     g = 0;
     b = x;
+  } else {
+    r = r;
+    g = g;
+    b = b;
   }
   //   getting the rgb
   r = Math.round((r + m) * 255);
@@ -154,26 +160,35 @@ function convertHslToRgb(params: Hsl): Rgb {
 function convertHslToHex(params: Hsl): Hex {
   // first convert to rgb
   let { red, green, blue } = convertHslToRgb(params);
-  let r: string, g: string, b: String;
-  // Having obtained RGB, convert channels to hex
-  r = red.toString(16);
-  g = green.toString(16);
-  b = blue.toString(16);
+  // Having obtained RGB,  convert  the channels to hex
+  let r = red.toString(16);
+  let g = green.toString(16);
+  let b = blue.toString(16);
   // Prepend 0s, if necessary
-  if (r.length == 1) r = "0" + r;
-  if (g.length == 1) g = "0" + g;
-  if (b.length == 1) b = "0" + b;
+  if (r.length == 1) {
+    r = "0" + r;
+  } else {
+    r = r;
+  }
+  if (g.length == 1) {
+    g = "0" + g;
+  } else {
+    g = g;
+  }
+  if (b.length == 1) {
+    b = "0" + b;
+  } else {
+    b = b;
+  }
   return `#${r}${g}${b}`;
 }
 // parser all color type to  its different types
-function parser(params: ParserParams): Parser {
-  //   loop through and convert back to hex
-  let { hue, saturation, lightness } = params.color;
-  let start = params.start;
-  let end = params.end;
-  let interval = params.interval;
-  let values: Parser = [convertHslToHex({ hue, saturation, lightness }), ""];
+function parser(params: Parser): string[] {
+  let { color, start, end, interval } = params;
+  let { hue, saturation, lightness } = color;
+  let values = [convertHslToHex(color)];
   let count = 1;
+  //   loop through and convert back to hex
   for (let i = start; i <= end; i += interval) {
     const h = (hue + i) % 360;
     values[count] = convertHslToHex({
@@ -189,37 +204,36 @@ function parser(params: ParserParams): Parser {
 // get  all color combination style
 function getCombination(params: Hex): Combinations {
   //   convert to hsl
-  let hslColor = convertHexToHsl(params);
   const compliment = parser({
-    color: hslColor,
+    color: convertHexToHsl(params),
     start: 180,
     end: 180,
     interval: 1,
   });
 
   const splitComp = parser({
-    color: hslColor,
+    color: convertHexToHsl(params),
     start: 150,
     end: 210,
     interval: 60,
   });
 
   const triad = parser({
-    color: hslColor,
+    color: convertHexToHsl(params),
     start: 120,
     end: 240,
     interval: 60,
   });
 
   const tetrad = parser({
-    color: hslColor,
+    color: convertHexToHsl(params),
     start: 90,
     end: 270,
     interval: 60,
   });
 
   return {
-    mainColor: [params],
+    mainColor: [params] as MainColor,
     complimentary: compliment as Complimentary,
     splitComplimentary: splitComp as SplitComplimentary,
     triad: triad as Triad,
@@ -228,10 +242,9 @@ function getCombination(params: Hex): Combinations {
 }
 
 const generate = (params?: Hex): Combinations => {
-  let colorRange = "1234567890abcdef";
-  let hex: Hex = "";
-  if (!params) {
-    hex = generateHex(colorRange);
+  let hex: Hex;
+  if (params == "" || !params) {
+    hex = generateHex();
   } else {
     hex = params;
   }
