@@ -18,7 +18,7 @@ it shows
 ### tetrad colors
 
 
-[the site here] (color-cookies.netlify.app/).
+[the site here](color-cookies.netlify.app/).
 
 
 
