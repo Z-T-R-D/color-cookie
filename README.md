@@ -1,6 +1,6 @@
 # Color cookie
 
-you can view the site [here](color-cookies.netlify.app/).
+you can view the site [here](https://color-cookies.netlify.app).
 
 
 ## About 
@@ -18,7 +18,7 @@ it shows
 ### tetrad colors
 
 
-[the site here](color-cookies.netlify.app/).
+[view the site here](https://color-cookies.netlify.app).
 
 
 
