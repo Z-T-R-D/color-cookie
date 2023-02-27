@@ -102,13 +102,13 @@ body {
   line-height: 1.5;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 img,
 picture,
 svg {
-  max-width: 100%;
+
   aspect-ratio: 1;
   width: 100%;
 }
