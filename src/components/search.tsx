@@ -11,7 +11,7 @@ export const Search = () => {
 
   const handleSearch = (event: React.FormEvent)  => {
     event.preventDefault();
-    if (!searchValue) return;
+    if (!searchValue || searchValue === "") return;
     console.log("searching for", searchValue);
     setSearchValue("");
   };

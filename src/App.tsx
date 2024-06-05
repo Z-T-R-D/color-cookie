@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Background } from "./components/bg";
+import { Search } from "./components/search";
+import { Header } from "./components/header";
+import { useEffect } from "react";
+import { useStore } from "./context/store";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const toggleDarkMode = useStore().toggleDarkMode;
+  useEffect(() => {
+    const darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return () => {
+      if (darkMode) {
+        toggleDarkMode();
+      }
+    };
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <main className="transition duration-500 ease-in p-4 mt-[0.5px] dark:mt-0 h-full bg-white dark:bg-black">
+        <section className="flex justify-center items-center relative overflow-hidden h-full">
+          <Background />
+          <Search />
+        </section>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

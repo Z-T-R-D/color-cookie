@@ -1,9 +1,9 @@
-// import Bg from "../assets/biking.svg";
+import { useStore } from "../context/store";
 
 export const Background = () => {
-const dark = false;
-  const themeColorLighter = `rgba(200, 200, 200, ${dark ? 0.1 : 0.4})`;
-  const themeColor = "#2f2e41"
+  const dark = useStore().darkMode;
+  const themeColorLighter = `rgba(180, 180, 180, ${dark ? 0.25 : 0.08 })`;
+  const themeColor = "#2f2e41";
   const primaryColor = "currentColor";
   return (
     <svg
@@ -11,7 +11,7 @@ const dark = false;
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 937.59653 653.44451"
       //   xmlns:xlink="http://www.w3.org/1999/xlink"
-      className="absolute inset-0 w-[500px] xs:w-full h-full object-cover text-blue-500"
+      className="absolute inset-0 w-[500px] xs:w-full h-full object-contain text-blue-500"
     >
       <title>biking</title>
       <polygon
@@ -120,7 +120,13 @@ const dark = false;
         transform="translate(-131.20174 -123.27775)"
         fill={themeColor}
       />
-      <rect x="450.5" y="567.94451" width="26" height="10" fill={primaryColor} />
+      <rect
+        x="450.5"
+        y="567.94451"
+        width="26"
+        height="10"
+        fill={primaryColor}
+      />
       <path
         d="M632.70174,718.22225a20,20,0,1,1,20-20A20.02229,20.02229,0,0,1,632.70174,718.22225Zm0-38a18,18,0,1,0,18,18A18.02094,18.02094,0,0,0,632.70174,680.22225Z"
         transform="translate(-131.20174 -123.27775)"
