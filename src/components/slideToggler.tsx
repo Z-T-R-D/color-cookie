@@ -21,7 +21,7 @@ export const SlideToggler = () => {
       />
       <label
         htmlFor="toggle"
-        className="toggle-label block overflow-hidden w-12 h-5 sm:w-16 sm:h-6 rounded-full cursor-default bg-neutral-200 dark:bg-neutral-700 shadow-inner select-none"
+        className="toggle-label block overflow-hidden w-12 h-5 sm:w-16 sm:h-6 rounded-full cursor-default bg-neutral-100 dark:bg-neutral-800 shadow-inner select-none"
       ></label>
     </div>
   );
