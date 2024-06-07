@@ -2,16 +2,17 @@ import { useStore } from "../context/store";
 
 export const Background = () => {
   const dark = useStore().darkMode;
-  const themeColorLighter = `rgba(180, 180, 180, ${dark ? 0.25 : 0.08 })`;
+  const currentColor = useStore((state) => state.currentColor);
+  const themeColorLighter = `rgba(180, 180, 180, ${dark ? 0.08 : 0.25 })`;
   const themeColor = "#2f2e41";
-  const primaryColor = "currentColor";
+  const primaryColor =  currentColor? currentColor :"currentColor";
   return (
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 937.59653 653.44451"
       //   xmlns:xlink="http://www.w3.org/1999/xlink"
-      className="absolute inset-0 w-[500px] xs:w-full h-full object-contain text-blue-500"
+      className="absolute  w-[600px] sm:w-full h-full text-blue-500 object-center "
     >
       <title>biking</title>
       <polygon
