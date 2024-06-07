@@ -2,7 +2,6 @@ import { useStore } from "../context/store";
 
 export const ShowMore = () => {
   const onShow = useStore((state) => state.onShow);
-  const show = useStore((state) => state.show);
   const currentColor = useStore((state) => state.currentColor);
 
   const handleClick = () => {
@@ -13,7 +12,7 @@ export const ShowMore = () => {
   return (
     <div
       className="absolute right-2 top-[150px] cursor-pointer dark:bg-neutral-900 p-3 rounded-full dark:active:bg-transparent bg-neutral-50 select-none"
-      style={{ color: currentColor, display: show ? "none" : "block" }}
+      style={{ display: currentColor ? "block" : "none" }}
       onClick={handleClick}
     >
       <svg
@@ -24,7 +23,8 @@ export const ShowMore = () => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-8 w-8 transform -rotate-90 "
+        className="h-8 w-8 transform -rotate-90 text-blue-500"
+        style={{ color: currentColor }}
       >
         <path d="M12 5v14M19 12l-7 7-7-7"></path>
       </svg>

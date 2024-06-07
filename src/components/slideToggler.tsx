@@ -1,7 +1,7 @@
 import { useStore } from "../context/store";
 
 export const SlideToggler = () => {
-  const darkMode = useStore().darkMode;
+  const darkMode = useStore((state)=> state.darkMode);
   const currentColor = useStore((state) => state.currentColor);
   const toggleDarkMode = useStore((state) => state.toggleDarkMode);
 

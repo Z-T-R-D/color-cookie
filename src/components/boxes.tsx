@@ -14,7 +14,7 @@ const Box = ({ color }: { color: string }) => {
   return (
     <div className="flex flex-col justify-center items-center mt-2">
       <div
-        className="p-2 rounded-md w-20 h-8 "
+        className="p-2 rounded-md w-16 h-8 xs:w-20 sm:w-24 lg:w-32 lg:h-10  2xl:w-48 select-none "
         style={{ backgroundColor: color }}
       ></div>
       <p className="text-xs font-semibold dark:text-neutral-200 text-neutral-500">

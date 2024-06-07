@@ -1,37 +1,194 @@
-type Complimentary = [string, string];
-type Triad = [string, string, string];
-type SplitComplementary = [string, string, string];
-type Tetrad = [string, string, string, string];
-type Shades = [string, string, string, string, string];
+type ColorScheme = string[];
+type Complimentary = ColorScheme & { length: 2 };
+type Triad = ColorScheme & { length: 3 };
+type SplitComplementary = ColorScheme & { length: 3 };
+type Tetrad = ColorScheme & { length: 4 };
+type Shades = ColorScheme & { length: 5 };
 
 export class ColorConverter {
   private rgbColor: string = "";
-  private errorMassage: string = "";
+  private errorMessage: string = "";
+  private namedColors = new Set([
+    "aliceblue",
+    "antiquewhite",
+    "aqua",
+    "aquamarine",
+    "azure",
+    "beige",
+    "bisque",
+    "black",
+    "blanchedalmond",
+    "blue",
+    "blueviolet",
+    "brown",
+    "burlywood",
+    "cadetblue",
+    "chartreuse",
+    "chocolate",
+    "coral",
+    "cornflowerblue",
+    "cornsilk",
+    "crimson",
+    "cyan",
+    "darkblue",
+    "darkcyan",
+    "darkgoldenrod",
+    "darkgray",
+    "darkgreen",
+    "darkgrey",
+    "darkkhaki",
+    "darkmagenta",
+    "darkolivegreen",
+    "darkorange",
+    "darkorchid",
+    "darkred",
+    "darksalmon",
+    "darkseagreen",
+    "darkslateblue",
+    "darkslategray",
+    "darkslategrey",
+    "darkturquoise",
+    "darkviolet",
+    "deeppink",
+    "deepskyblue",
+    "dimgray",
+    "dimgrey",
+    "dodgerblue",
+    "firebrick",
+    "floralwhite",
+    "forestgreen",
+    "fuchsia",
+    "gainsboro",
+    "ghostwhite",
+    "gold",
+    "goldenrod",
+    "gray",
+    "green",
+    "greenyellow",
+    "grey",
+    "honeydew",
+    "hotpink",
+    "indianred",
+    "indigo",
+    "ivory",
+    "khaki",
+    "lavender",
+    "lavenderblush",
+    "lawngreen",
+    "lemonchiffon",
+    "lightblue",
+    "lightcoral",
+    "lightcyan",
+    "lightgoldenrodyellow",
+    "lightgray",
+    "lightgreen",
+    "lightgrey",
+    "lightpink",
+    "lightsalmon",
+    "lightseagreen",
+    "lightskyblue",
+    "lightslategray",
+    "lightslategrey",
+    "lightsteelblue",
+    "lightyellow",
+    "lime",
+    "limegreen",
+    "linen",
+    "magenta",
+    "maroon",
+    "mediumaquamarine",
+    "mediumblue",
+    "mediumorchid",
+    "mediumpurple",
+    "mediumseagreen",
+    "mediumslateblue",
+    "mediumspringgreen",
+    "mediumturquoise",
+    "mediumvioletred",
+    "midnightblue",
+    "mintcream",
+    "mistyrose",
+    "moccasin",
+    "navajowhite",
+    "navy",
+    "oldlace",
+    "olive",
+    "olivedrab",
+    "orange",
+    "orangered",
+    "orchid",
+    "palegoldenrod",
+    "palegreen",
+    "paleturquoise",
+    "palevioletred",
+    "papayawhip",
+    "peachpuff",
+    "peru",
+    "pink",
+    "plum",
+    "powderblue",
+    "purple",
+    "rebeccapurple",
+    "red",
+    "rosybrown",
+    "royalblue",
+    "saddlebrown",
+    "salmon",
+    "sandybrown",
+    "seagreen",
+    "seashell",
+    "sienna",
+    "silver",
+    "skyblue",
+    "slateblue",
+    "slategray",
+    "slategrey",
+    "snow",
+    "springgreen",
+    "steelblue",
+    "tan",
+    "teal",
+    "thistle",
+    "tomato",
+    "turquoise",
+    "violet",
+    "wheat",
+    "white",
+    "whitesmoke",
+    "yellow",
+    "yellowgreen",
+  ]);
 
   constructor(code: string) {
-    if (code.startsWith("#")) {
-      this.rgbColor = this.convertHexToRgb(code);
-    } else if (this.isNamedColor(code)) {
-      this.rgbColor = this.ConvertNamedColorToHex(code);
-    } else if (code === "" || !code) {
-      this.rgbColor = this.generateColor();
-    } else {
-      this.errorMassage = "Invalid color";
+    let rgbColor = "";
+    switch (true) {
+      case code.startsWith("#"):
+        rgbColor = this.convertHexToRgb(code);
+        break;
+      case this.isNamedColor(code):
+        rgbColor = this.ConvertNamedColorToHex(code);
+        break;
+      case code === "" || !code:
+        rgbColor = this.generateColor();
+        break;
+      default:
+        this.errorMessage = "Invalid color";
     }
+    this.rgbColor = this.checkRgb(rgbColor);
   }
 
   private checkRgb(rgb: string) {
-    if (!rgb.startsWith("rgb(") || !rgb.endsWith(")")) {
-      this.errorMassage = "Invalid RGB color";
+    if (!/^rgb\(\d{1,3}, \d{1,3}, \d{1,3}\)$/.test(rgb)) {
+      this.errorMessage = "Invalid RGB color";
+      return "";
     }
+    return rgb;
   }
 
   private convertRgbToHex(rgb: string) {
-    this.checkRgb(rgb);
-    const rgbValues = rgb.match(/\d+/g)!;
-    const r = parseInt(rgbValues[0]).toString(16).padStart(2, "0");
-    const g = parseInt(rgbValues[1]).toString(16).padStart(2, "0");
-    const b = parseInt(rgbValues[2]).toString(16).padStart(2, "0");
+    const [r, g, b] = rgb
+      .match(/\d+/g)!
+      .map((num) => parseInt(num).toString(16).padStart(2, "0"));
     return `#${r}${g}${b}`;
   }
 
@@ -41,193 +198,30 @@ export class ColorConverter {
     document.body.appendChild(tempElement);
     const color = getComputedStyle(tempElement).color;
     document.body.removeChild(tempElement);
-    if (color === "rgb(0, 0, 0)") {
-      this.errorMassage = "Invalid named color";
-    }
     return color;
   }
 
   private convertHexToRgb(hex: string) {
-    if (hex.charAt(0) === "#") {
-      hex = hex.slice(1);
-    }
-    if (hex.length === 3) {
-      hex = hex
-        .split("")
-        .map((char) => char + char)
-        .join("");
-    } else if (hex.length !== 6) {
-      this.errorMassage = "Invalid hexadecimal color";
-    }
-    const r = parseInt(hex.slice(0, 2), 16);
-    const g = parseInt(hex.slice(2, 4), 16);
-    const b = parseInt(hex.slice(4, 6), 16);
+    const [r, g, b] = hex
+      .replace("#", "")
+      .match(/.{1,2}/g)!
+      .map((num) => parseInt(num, 16));
     return `rgb(${r}, ${g}, ${b})`;
   }
 
   private isNamedColor(color: string) {
-    const namedColors = [
-      "aliceblue",
-      "antiquewhite",
-      "aqua",
-      "aquamarine",
-      "azure",
-      "beige",
-      "bisque",
-      "black",
-      "blanchedalmond",
-      "blue",
-      "blueviolet",
-      "brown",
-      "burlywood",
-      "cadetblue",
-      "chartreuse",
-      "chocolate",
-      "coral",
-      "cornflowerblue",
-      "cornsilk",
-      "crimson",
-      "cyan",
-      "darkblue",
-      "darkcyan",
-      "darkgoldenrod",
-      "darkgray",
-      "darkgreen",
-      "darkgrey",
-      "darkkhaki",
-      "darkmagenta",
-      "darkolivegreen",
-      "darkorange",
-      "darkorchid",
-      "darkred",
-      "darksalmon",
-      "darkseagreen",
-      "darkslateblue",
-      "darkslategray",
-      "darkslategrey",
-      "darkturquoise",
-      "darkviolet",
-      "deeppink",
-      "deepskyblue",
-      "dimgray",
-      "dimgrey",
-      "dodgerblue",
-      "firebrick",
-      "floralwhite",
-      "forestgreen",
-      "fuchsia",
-      "gainsboro",
-      "ghostwhite",
-      "gold",
-      "goldenrod",
-      "gray",
-      "green",
-      "greenyellow",
-      "grey",
-      "honeydew",
-      "hotpink",
-      "indianred",
-      "indigo",
-      "ivory",
-      "khaki",
-      "lavender",
-      "lavenderblush",
-      "lawngreen",
-      "lemonchiffon",
-      "lightblue",
-      "lightcoral",
-      "lightcyan",
-      "lightgoldenrodyellow",
-      "lightgray",
-      "lightgreen",
-      "lightgrey",
-      "lightpink",
-      "lightsalmon",
-      "lightseagreen",
-      "lightskyblue",
-      "lightslategray",
-      "lightslategrey",
-      "lightsteelblue",
-      "lightyellow",
-      "lime",
-      "limegreen",
-      "linen",
-      "magenta",
-      "maroon",
-      "mediumaquamarine",
-      "mediumblue",
-      "mediumorchid",
-      "mediumpurple",
-      "mediumseagreen",
-      "mediumslateblue",
-      "mediumspringgreen",
-      "mediumturquoise",
-      "mediumvioletred",
-      "midnightblue",
-      "mintcream",
-      "mistyrose",
-      "moccasin",
-      "navajowhite",
-      "navy",
-      "oldlace",
-      "olive",
-      "olivedrab",
-      "orange",
-      "orangered",
-      "orchid",
-      "palegoldenrod",
-      "palegreen",
-      "paleturquoise",
-      "palevioletred",
-      "papayawhip",
-      "peachpuff",
-      "peru",
-      "pink",
-      "plum",
-      "powderblue",
-      "purple",
-      "rebeccapurple",
-      "red",
-      "rosybrown",
-      "royalblue",
-      "saddlebrown",
-      "salmon",
-      "sandybrown",
-      "seagreen",
-      "seashell",
-      "sienna",
-      "silver",
-      "skyblue",
-      "slateblue",
-      "slategray",
-      "slategrey",
-      "snow",
-      "springgreen",
-      "steelblue",
-      "tan",
-      "teal",
-      "thistle",
-      "tomato",
-      "turquoise",
-      "violet",
-      "wheat",
-      "white",
-      "whitesmoke",
-      "yellow",
-      "yellowgreen",
-    ];
-    return namedColors.includes(color.toLowerCase());
+    return this.namedColors.has(color.toLowerCase());
   }
 
   private generateColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
+    return `rgb(${Array(3)
+      .fill(0)
+      .map(() => Math.floor(Math.random() * 256))
+      .join(", ")})`;
   }
 
   get ErrorMessage() {
-    return this.errorMassage;
+    return this.errorMessage;
   }
 
   get color() {
@@ -236,7 +230,6 @@ export class ColorConverter {
 
   get tetrad(): Tetrad {
     const rgb = this.rgbColor;
-    this.checkRgb(rgb);
     const rgbValues = rgb.match(/\d+/g)!;
     const r = parseInt(rgbValues[0]);
     const g = parseInt(rgbValues[1]);
@@ -254,7 +247,6 @@ export class ColorConverter {
 
   get shades(): Shades {
     const rgb = this.rgbColor;
-    this.checkRgb(rgb);
     const rgbValues = rgb.match(/\d+/g)!;
     const r = parseInt(rgbValues[0]);
     const g = parseInt(rgbValues[1]);
@@ -264,17 +256,16 @@ export class ColorConverter {
     const shade3 = `rgb(${r - 150}, ${g - 150}, ${b - 150})`;
     const shade4 = `rgb(${r - 200}, ${g - 200}, ${b - 200})`;
     return [
-      this.convertRgbToHex(shade4),
-      this.convertRgbToHex(shade3),
-      this.convertRgbToHex(shade2),
-      this.convertRgbToHex(shade1),
       this.convertRgbToHex(rgb),
+      this.convertRgbToHex(shade1),
+      this.convertRgbToHex(shade2),
+      this.convertRgbToHex(shade3),
+      this.convertRgbToHex(shade4),
     ];
   }
 
   get triad(): Triad {
     const rgb = this.rgbColor;
-    this.checkRgb(rgb);
     const rgbValues = rgb.match(/\d+/g)!;
     const r = parseInt(rgbValues[0]);
     const g = parseInt(rgbValues[1]);
@@ -290,7 +281,6 @@ export class ColorConverter {
 
   get complimentary(): Complimentary {
     const rgb = this.rgbColor;
-    this.checkRgb(rgb);
     const rgbValues = rgb.match(/\d+/g)!;
     const r = 255 - parseInt(rgbValues[0]);
     const g = 255 - parseInt(rgbValues[1]);
@@ -304,7 +294,6 @@ export class ColorConverter {
 
   get splitComplementary(): SplitComplementary {
     const rgb = this.rgbColor;
-    this.checkRgb(rgb);
     const rgbValues = rgb.match(/\d+/g)!;
     const r = parseInt(rgbValues[0]);
     const g = parseInt(rgbValues[1]);

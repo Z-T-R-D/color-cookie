@@ -1,18 +1,32 @@
 import { create } from "zustand";
 
-type ComplimentaryColors = [string, string];
+type ColorScheme = string[];
+type Complimentary = ColorScheme & { length: 2 };
+type Triad = ColorScheme & { length: 3 };
+type SplitComplementary = ColorScheme & { length: 3 };
+type Tetrad = ColorScheme & { length: 4 };
+type Shades = ColorScheme & { length: 5 };
 
 type Store = {
-  currentColor: string;
-  complimentaryColors: ComplimentaryColors;
-  darkMode: boolean;
-  errorMessage: string;
   show: boolean;
-  toggleShow: () => void;
-  addErrorMessage: (msg: string) => void;
-  addCurrentColor: (clr: string) => void;
-  addComplimentaryColors: (clrs: ComplimentaryColors) => void;
+  triad: Triad;
+  tetrad: Tetrad;
+  shades: Shades;
+  darkMode: boolean;
+  currentColor: string;
+  errorMessage: string;
+  complimentary: Complimentary;
+  splitComplementary: SplitComplementary;
+  onShow: () => void;
+  offShow: () => void;
   toggleDarkMode: () => void;
+  addTriad: (colors: Triad) => void;
+  addTetrad: (colors: Tetrad) => void;
+  addShades: (colors: Shades) => void;
+  addErrorMessage: (msg: string) => void;
+  addCurrentColor: (color: string) => void;
+  addComplimentary: (colors: Complimentary) => void;
+  addSplitComplementary: (colors: SplitComplementary) => void;
 };
 
 // add dark mode to the root element
@@ -24,16 +38,26 @@ const AddDarkModeToRoot = () => {
 };
 
 export const useStore = create<Store>((set) => ({
-  currentColor: "",
-  complimentaryColors: ["", ""],
   darkMode: false,
   errorMessage: "",
   show: false,
-  toggleShow: () => set((state) => ({ show: !state.show })),
+  currentColor: "",
+  triad: ["", "", ""],
+  complimentary: ["", ""],
+  tetrad: ["", "", "", ""],
+  shades: ["", "", "", "", ""],
+  splitComplementary: ["", "", ""],
+  onShow: () => set(() => ({ show: true })),
+  offShow: () => set(() => ({ show: false })),
   addErrorMessage: (msg: string) => set(() => ({ errorMessage: msg })),
-  addCurrentColor: (clr: string) => set(() => ({ currentColor: clr })),
-  addComplimentaryColors: (clrs: ComplimentaryColors) =>
-    set(() => ({ complimentaryColors: clrs })),
+  addCurrentColor: (color: string) => set(() => ({ currentColor: color })),
+  addTriad: (colors: Triad) => set(() => ({ triad: colors })),
+  addTetrad: (colors: Tetrad) => set(() => ({ tetrad: colors })),
+  addShades: (colors: Shades) => set(() => ({ shades: colors })),
+  addSplitComplementary: (colors: SplitComplementary) =>
+    set(() => ({ splitComplementary: colors })),
+  addComplimentary: (colors: Complimentary) =>
+    set(() => ({ complimentary: colors })),
   toggleDarkMode: () =>
     set((state) => {
       AddDarkModeToRoot();
