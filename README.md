@@ -1,2 +1,31 @@
-# color-cookie
-a fun app for generating and managing color
+# Color Cookies
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-netlify-badge-url/deploy-status)](https://color-cookie-app.netlify.app/)
+
+Welcome to the **Color Cookies** project! This monorepo houses two versions of the Color Cookies application:
+
+- **v1:** The legacy version of the app, built using **Yarn**.
+- **v2:** The current and active version of the app, built using **pnpm**.
+
+You can view the live deployment here: [https://color-cookie-app.netlify.app/](https://color-cookie-app.netlify.app/)
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+- [Yarn](https://yarnpkg.com/) (for v1)
+- [pnpm](https://pnpm.io/) (for v2)
+
+### Installing Dependencies
+
+You can install the dependencies for both versions at once by using the Makefile:
+
+cd v1
+yarn install
+yarn build
+
+cd v2
+pnpm install
+pnpm build
+
