@@ -1,6 +1,8 @@
 # Color Cookies
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/00f9fc65-78ed-471b-96d8-27efffc17d85/deploy-status)](https://app.netlify.com/sites/color-cookie-app/deploys)
+
+
 Welcome to the **Color Cookies** project! This monorepo houses two versions of the Color Cookies application:
 
 - **v1:** The legacy version of the app, built using **Yarn**.
